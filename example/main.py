@@ -8,6 +8,9 @@ from flask import render_template
 import flask_util_js
 
 app = Flask(__name__)
+app.config.from_object(__name__)
+
+flask_util_js.install(app)
 
 @app.route('/')
 def index():
@@ -16,8 +19,6 @@ def index():
 @app.route('/<int:myid>')
 def show_id():
     return 'ok'
-
-
 
 
 bpt = Blueprint('sub', __name__)
@@ -29,7 +30,6 @@ def bpt_index(x):
 app.register_blueprint(bpt, url_prefix='/sub')
 
     
-flask_util_js.install(app)
 
 if __name__ == '__main__':
     app.run(debug=True)
