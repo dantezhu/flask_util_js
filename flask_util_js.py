@@ -29,6 +29,8 @@ from flask import render_template_string
 FLASK_UTIL_JS_PATH = '/flask_util.js'
 
 FLASK_UTIL_JS_TPL_STRING = '''
+{% autoescape false %}
+
 var flask_util = function() {
     var url_map = {{ url_map|pprint }};
 
@@ -113,6 +115,8 @@ var flask_util = function() {
         url_for: url_for
     }
 }();
+
+{% endautoescape %}
 '''
 
 def install(app):
