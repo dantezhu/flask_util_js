@@ -24,7 +24,7 @@
 '''
 
 from flask import Response
-from flask import render_template_string
+from flask import render_template_string, json
 
 FLASK_UTIL_JS_PATH = '/flask_util.js'
 
@@ -32,7 +32,7 @@ FLASK_UTIL_JS_TPL_STRING = '''
 {% autoescape false %}
 
 var flask_util = function() {
-    var url_map = {{ url_map }};
+    var url_map = {{ json_url_map }};
 
     function url_encode(clearString) {
         var output = '';
@@ -139,9 +139,11 @@ def install(app):
                 defaults=v[0].defaults or {},
                 )
 
+        json_url_map = json.dumps(url_map, ensure_ascii=False)
+
         rv = render_template_string(
             FLASK_UTIL_JS_TPL_STRING, 
-            url_map=url_map
+            json_url_map=json_url_map
             )
 
         return Response(rv, content_type='application/x-javascript')

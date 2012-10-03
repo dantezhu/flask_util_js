@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sys
 
 sys.path.insert(0, '../')
@@ -23,7 +25,7 @@ def show_id():
 
 bpt = Blueprint('sub', __name__)
 
-@bpt.route('/<x>', defaults=dict(x=1))
+@bpt.route('/<x>', defaults=dict(x=u'我爱你'))
 def bpt_index(x):
     return 'ok'
 
