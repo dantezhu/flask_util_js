@@ -30,18 +30,7 @@ FLASK_UTIL_JS_PATH = '/flask_util.js'
 
 FLASK_UTIL_JS_TPL_STRING = '''
 var flask_util = function() {
-    var url_map = {
-        {% for k, v in url_map.items() %}
-            {% if not loop.first %}
-            ,
-            {% endif %}
-
-            '{{ k }}':{
-                rule: '{{ v[0].rule }}',
-                defaults: {{ v[0].defaults or {} }}
-            }
-        {% endfor %}
-    };
+    var url_map = {{ url_map|pprint }};
 
     function url_encode(clearString) {
         var output = '';
@@ -135,7 +124,16 @@ def install(app):
 
     @app.route(path, endpoint=endpoint)
     def flask_util_js():
-        url_map = app.url_map._rules_by_endpoint
+        org_url_map = app.url_map._rules_by_endpoint
+
+        #把重的逻辑还是放到python代码里
+        url_map = dict()
+
+        for k,v in org_url_map.items():
+            url_map[k] = dict(
+                rule=v[0].rule,
+                defaults=v[0].defaults or {},
+                )
 
         rv = render_template_string(
             FLASK_UTIL_JS_TPL_STRING, 
