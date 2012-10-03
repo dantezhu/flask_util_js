@@ -32,7 +32,7 @@ FLASK_UTIL_JS_TPL_STRING = '''
 {% autoescape false %}
 
 var flask_util = function() {
-    var url_map = {{ url_map|pprint }};
+    var url_map = {{ url_map }};
 
     function url_encode(clearString) {
         var output = '';
