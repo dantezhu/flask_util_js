@@ -139,7 +139,7 @@ def install(app):
                 defaults=v[0].defaults or {},
                 )
 
-        json_url_map = json.dumps(url_map, ensure_ascii=False)
+        json_url_map = json.dumps(url_map, indent=4, ensure_ascii=False)
 
         rv = render_template_string(
             FLASK_UTIL_JS_TPL_STRING, 
