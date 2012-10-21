@@ -4,7 +4,7 @@ setup(
     name="flask_util_js",
     version="0.1",
     py_modules=['flask_util_js'],
-    url="http://www.vimer.cn",
+    url="https://github.com/dantezhu/flask_util_js",
     license="BSD",
     author="dantezhu",
     author_email="zny2008@gmail.com",
