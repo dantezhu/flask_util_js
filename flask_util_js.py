@@ -24,6 +24,8 @@
 #=============================================================================
 '''
 
+__version__ = (0, 2, 0)
+
 from flask import Response
 from flask import render_template_string, json
 
