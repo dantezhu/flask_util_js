@@ -7,16 +7,16 @@ sys.path.insert(0, '../')
 from flask import Flask, Blueprint
 from flask import render_template
 
-import flask_util_js
+from flask_util_js import FlaskUtilJs
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-flask_util_js.install(app)
+fujs = FlaskUtilJs(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', fujs=fujs)
 
 @app.route('/<int:myid>')
 def show_id():

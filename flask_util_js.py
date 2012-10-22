@@ -15,10 +15,11 @@
 #     HomePage: http://www.vimer.cn
 #
 #      Created: 2012-07-09 17:23:51
-#      Version: 0.1
+#      Version: 0.2.0
 #      History:
 #               0.0.1 | dantezhu | 2012-07-09 17:23:51 | initialization
 #               0.1   | dantezhu | 2012-08-30 22:54:33 | 正式版本
+#               0.2.0 | John Doe | 2012-10-22 21:53:14 | 优化为实例的方式
 #
 #=============================================================================
 '''
@@ -119,31 +120,62 @@ var flask_util = function() {
 {% endautoescape %}
 '''
 
-def install(app):
-    """
-    安装到app上
-    """
-    path = app.config.get('FLASK_UTIL_JS_PATH', FLASK_UTIL_JS_PATH)
-    endpoint = app.config.get('FLASK_UTIL_JS_ENDPOINT', None)
+class FlaskUtilJs(object):
+    """FlaskUtilJs"""
 
-    @app.route(path, endpoint=endpoint)
-    def flask_util_js():
-        org_url_map = app.url_map._rules_by_endpoint
+    def __init__(self, app=None):
+        """init with app
 
-        #把重的逻辑还是放到python代码里
-        url_map = dict()
+        :app: Flask instance
 
-        for k,v in org_url_map.items():
-            url_map[k] = dict(
-                rule=v[0].rule,
-                defaults=v[0].defaults or {},
+        """
+        self._app = None
+
+        if app:
+            self.init_app(app)
+        
+    def init_app(self, app):
+        """
+        安装到app上
+        """
+        if self._app is not None:
+            raise Exception('Flask-Admin is already associated with an application.')
+
+        self._app = app
+            
+        path = app.config.get('FLASK_UTIL_JS_PATH', FLASK_UTIL_JS_PATH)
+        endpoint = app.config.get('FLASK_UTIL_JS_ENDPOINT', None)
+
+        @app.route(path, endpoint=endpoint)
+        def flask_util_js():
+            org_url_map = app.url_map._rules_by_endpoint
+
+            #把重的逻辑还是放到python代码里
+            url_map = dict()
+
+            for k,v in org_url_map.items():
+                url_map[k] = dict(
+                    rule=v[0].rule,
+                    defaults=v[0].defaults or {},
+                    )
+
+            json_url_map = json.dumps(url_map, indent=4, ensure_ascii=False)
+
+            rv = render_template_string(
+                FLASK_UTIL_JS_TPL_STRING, 
+                json_url_map=json_url_map
                 )
 
-        json_url_map = json.dumps(url_map, indent=4, ensure_ascii=False)
+            return Response(rv, content_type='application/x-javascript')
+        
+        # 最后把数据写到实例里
+        self._path = path
+        self._endpoint = endpoint or flask_util_js.__name__
+            
+    @property
+    def path(self):
+        return self._path
 
-        rv = render_template_string(
-            FLASK_UTIL_JS_TPL_STRING, 
-            json_url_map=json_url_map
-            )
-
-        return Response(rv, content_type='application/x-javascript')
+    @property
+    def endpoint(self):
+        return self._endpoint

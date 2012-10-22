@@ -6,7 +6,7 @@
 
         <title>Index</title>
 
-        <script src="{{ url_for('flask_util_js') }}" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ fujs.path }}" type="text/javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
             var url = flask_util.url_for('sub.bpt_index', {y:2, x:'/sdf'});
@@ -18,6 +18,9 @@
     </head>
 
     <body>
+        <p>flask_util.js:</p> 
+        <p>path: {{ fujs.path }}</p>
+        <p>endpoint: {{ fujs.endpoint }}</p>
         
     </body>
 </html>

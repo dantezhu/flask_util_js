@@ -9,16 +9,16 @@ flask's util in javascript. such as url_for etc.
 
 
     from flask import Flask
-    import flask_util_js
+    from flask_util_js import FlaskUtilJs
 
     app = Flask(__name__)
 
-    flask_util_js.install(app)
+    fujs = FlaskUtilJs(app)
 
 
 ###### load flask_util.js in your html file
 
-    <script src="{{ url_for('flask_util_js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ fujs.path }}" type="text/javascript" charset="utf-8"></script>
 
 ###### use url_for in your js file
 
