@@ -14,9 +14,13 @@ app.config.from_object(__name__)
 
 fujs = FlaskUtilJs(app)
 
+@app.context_processor
+def inject_fujs():
+    return dict(fujs=fujs)
+
 @app.route('/')
 def index():
-    return render_template('index.html', fujs=fujs)
+    return render_template('index.html')
 
 @app.route('/<int:myid>')
 def show_id():
