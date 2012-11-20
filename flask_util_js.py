@@ -168,7 +168,13 @@ class FlaskUtilJs(object):
                 json_url_map=json_url_map
                 )
 
-            return Response(rv, content_type='application/x-javascript')
+            return Response(
+                rv,
+                content_type='application/x-javascript',
+                headers={
+                    'Cache-Control':'no-cache',
+                }
+            )
         
         # 最后把数据写到实例里
         self._path = path
