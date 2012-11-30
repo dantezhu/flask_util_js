@@ -15,17 +15,17 @@
 #     HomePage: http://www.vimer.cn
 #
 #      Created: 2012-07-09 17:23:51
-#      Version: 0.2.3
 #      History:
 #               0.0.1 | dantezhu | 2012-07-09 17:23:51 | initialization
 #               0.1   | dantezhu | 2012-08-30 22:54:33 | 正式版本
 #               0.2.0 | dantezhu | 2012-10-22 21:53:14 | 优化为实例的方式
 #               0.2.3 | dantezhu | 2012-11-20 11:13:22 | 增加no cache
+#               0.2.4 | dantezhu | 2012-11-30 10:58:13 | content-type
 #
 #=============================================================================
 '''
 
-__version__ = (0, 2, 3)
+__version__ = (0, 2, 4)
 
 from flask import Response
 from flask import render_template_string, json
@@ -171,7 +171,7 @@ class FlaskUtilJs(object):
 
             return Response(
                 rv,
-                content_type='application/x-javascript',
+                content_type='text/javascript; charset=UTF-8',
                 headers={
                     'Cache-Control':'no-cache',
                 }
