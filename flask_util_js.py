@@ -21,11 +21,12 @@
 #               0.2.0 | dantezhu | 2012-10-22 21:53:14 | 优化为实例的方式
 #               0.2.3 | dantezhu | 2012-11-20 11:13:22 | 增加no cache
 #               0.2.4 | dantezhu | 2012-11-30 10:58:13 | content-type
+#               0.2.5 | dantezhu | 2012-12-04 11:41:15 | defaults不需要，缺少params报异常
 #
 #=============================================================================
 '''
 
-__version__ = (0, 2, 4)
+__version__ = (0, 2, 5)
 
 from flask import Response
 from flask import render_template_string, json
@@ -71,13 +72,6 @@ var flask_util = function() {
             return '';
         }
         var rule = url_map[endpoint]['rule'];
-        var defaults = url_map[endpoint]['defaults'];
-
-        for(var k in defaults) {
-            if (!(k in params)) {
-                params[k] = defaults[k];
-            }
-        }
 
         var used_params = {};
 
@@ -89,7 +83,7 @@ var flask_util = function() {
                 used_params[_1] = params[_1];
                 return url_encode(params[_1]);
             } else {
-                return '';
+                throw(_1 + ' does not exist in params');
             }
         });
 
@@ -159,7 +153,6 @@ class FlaskUtilJs(object):
             for k,v in org_url_map.items():
                 url_map[k] = dict(
                     rule=v[0].rule,
-                    defaults=v[0].defaults or {},
                     )
 
             json_url_map = json.dumps(url_map, indent=4, ensure_ascii=False)
