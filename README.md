@@ -7,7 +7,6 @@ flask's util in javascript. such as url_for etc.
 
 ###### install flask_util_js to your server app
 
-
     from flask import Flask
     from flask_util_js import FlaskUtilJs
 
@@ -15,6 +14,11 @@ flask's util in javascript. such as url_for etc.
 
     fujs = FlaskUtilJs(app)
 
+###### inject fujs to template context
+
+    @app.context_processor
+    def inject_fujs():
+        return dict(fujs=fujs)
 
 ###### load flask_util.js in your html file
 
