@@ -136,7 +136,7 @@ class FlaskUtilJs(object):
         安装到app上
         """
         if self._app is not None:
-            raise Exception('Flask-Admin is already associated with an application.')
+            raise Exception('flask_util_js is already associated with an application.')
 
         self._app = app
             
