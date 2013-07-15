@@ -20,7 +20,7 @@ flask's util in javascript. such as url_for etc.
     def inject_fujs():
         return dict(fujs=fujs)
 
-###### load flask_util.js in your html file(before head close)
+###### load flask_util.js in your html file
 
     {{ fujs.js }}
 
