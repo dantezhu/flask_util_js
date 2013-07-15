@@ -23,13 +23,14 @@
 #               0.2.4 | dantezhu | 2012-11-30 10:58:13 | content-type
 #               0.2.5 | dantezhu | 2012-12-04 11:41:15 | defaults不需要，缺少params报异常
 #               0.2.6 | dantezhu | 2013-07-15 16:44:12 | fix bug，当params中有为0的参数时，不正常
+#               0.2.7 | dantezhu | 2013-07-16 01:28:20 | 增加js直接渲染
 #
 #=============================================================================
 '''
 
-__version__ = (0, 2, 6)
+__version__ = (0, 2, 7)
 
-from flask import Response
+from flask import Response, Markup
 from flask import render_template_string, json
 
 FLASK_UTIL_JS_PATH = '/flask_util.js'
@@ -182,3 +183,7 @@ class FlaskUtilJs(object):
     @property
     def endpoint(self):
         return self._endpoint
+
+    @property
+    def js(self):
+        return Markup('<script src="%s" type="text/javascript" charset="utf-8"></script>') % self.path

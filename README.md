@@ -20,9 +20,9 @@ flask's util in javascript. such as url_for etc.
     def inject_fujs():
         return dict(fujs=fujs)
 
-###### load flask_util.js in your html file
+###### load flask_util.js in your html file(before head close)
 
-    <script src="{{ fujs.path }}" type="text/javascript" charset="utf-8"></script>
+    {{ fujs.js }}
 
 ###### use url_for in your js file
 
