@@ -22,11 +22,12 @@
 #               0.2.3 | dantezhu | 2012-11-20 11:13:22 | 增加no cache
 #               0.2.4 | dantezhu | 2012-11-30 10:58:13 | content-type
 #               0.2.5 | dantezhu | 2012-12-04 11:41:15 | defaults不需要，缺少params报异常
+#               0.2.6 | dantezhu | 2013-07-15 16:44:12 | fix bug，当params中有为0的参数时，不正常
 #
 #=============================================================================
 '''
 
-__version__ = (0, 2, 5)
+__version__ = (0, 2, 6)
 
 from flask import Response
 from flask import render_template_string, json
@@ -79,7 +80,7 @@ var flask_util = function() {
         var rex = /\<\s*(\w+:)*(\w+)\s*\>/ig;
 
         var path = rule.replace(rex, function(_i, _0, _1) {
-            if (params[_1]) {
+            if (params.hasOwnProperty(_1)) {
                 used_params[_1] = params[_1];
                 return url_encode(params[_1]);
             } else {
@@ -90,7 +91,7 @@ var flask_util = function() {
         var query_string = '';
 
         for(var k in params) {
-            if (used_params[k]) {
+            if (used_params.hasOwnProperty(k)) {
                 continue;
             }
 
