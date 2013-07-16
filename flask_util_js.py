@@ -24,11 +24,12 @@
 #               0.2.5 | dantezhu | 2012-12-04 11:41:15 | defaults不需要，缺少params报异常
 #               0.2.6 | dantezhu | 2013-07-15 16:44:12 | fix bug，当params中有为0的参数时，不正常
 #               0.2.7 | dantezhu | 2013-07-16 01:28:20 | 增加js直接渲染
+#               0.2.8 | dantezhu | 2013-07-16 12:04:23 | 使用encodeURIComponent，否则中文有问题
 #
 #=============================================================================
 '''
 
-__version__ = (0, 2, 7)
+__version__ = (0, 2, 8)
 
 from flask import Response, Markup
 from flask import render_template_string, json
@@ -40,31 +41,6 @@ FLASK_UTIL_JS_TPL_STRING = '''
 
 var flask_util = function() {
     var url_map = {{ json_url_map }};
-
-    function url_encode(clearString) {
-        var output = '';
-        var x = 0;
-        clearString = clearString.toString();
-        var regex = /(^[a-zA-Z0-9-_.]*)/;
-        while (x < clearString.length) {
-            var match = regex.exec(clearString.substr(x));
-            if (match != null && match.length > 1 && match[1] != '') {
-                output += match[1];
-                x += match[1].length;
-            } else {
-                if (clearString.substr(x, 1) == ' ') {
-                    output += '+';
-                }
-                else {
-                    var charCode = clearString.charCodeAt(x);
-                    var hexVal = charCode.toString(16);
-                    output += '%' + ( hexVal.length < 2 ? '0' : '' ) + hexVal.toUpperCase();
-                }
-                x++;
-            }
-        }
-        return output;
-    }
 
     function url_for(endpoint, params) {
         if (!params) {
@@ -83,7 +59,7 @@ var flask_util = function() {
         var path = rule.replace(rex, function(_i, _0, _1) {
             if (params.hasOwnProperty(_1)) {
                 used_params[_1] = params[_1];
-                return url_encode(params[_1]);
+                return encodeURIComponent(params[_1]);
             } else {
                 throw(_1 + ' does not exist in params');
             }
@@ -100,7 +76,7 @@ var flask_util = function() {
             if(query_string.length > 0) {
                 query_string += '&';
             }
-            query_string += url_encode(k)+'='+url_encode(v);
+            query_string += encodeURIComponent(k)+'='+encodeURIComponent(v);
         }
 
         var url = path;

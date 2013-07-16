@@ -29,8 +29,10 @@ def show_id():
 
 bpt = Blueprint('sub', __name__)
 
-@bpt.route('/<x>', defaults=dict(x=u'我爱你'))
+@bpt.route('/', defaults=dict(x=u'我爱你'))
+@bpt.route('/<x>')
 def bpt_index(x):
+    print x
     return 'ok'
 
 app.register_blueprint(bpt, url_prefix='/sub')
