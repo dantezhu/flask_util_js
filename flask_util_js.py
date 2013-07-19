@@ -49,10 +49,11 @@ var flask_util = function() {
         if (!params) {
             params = {};
         }
+
         if (!url_map[endpoint]) {
             throw('endpoint is not exist: ' + endpoint);
-            return '';
         }
+
         var rule = url_map[endpoint]['rule'];
 
         var used_params = {};
