@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="flask_util_js",
-    version="0.2.9",
+    version="0.2.10",
     zip_safe=False,
     platforms='any',
     py_modules=['flask_util_js'],

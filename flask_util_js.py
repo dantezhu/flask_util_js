@@ -26,11 +26,12 @@
 #               0.2.7 | dantezhu | 2013-07-16 01:28:20 | 增加js直接渲染
 #               0.2.8 | dantezhu | 2013-07-16 12:04:23 | 使用encodeURIComponent，否则中文有问题
 #               0.2.9 | dantezhu | 2013-07-16 12:04:23 | 用tojson，支持直接放到html中
+#               0.2.10 | dantezhu | 2013-07-19 11:10:41 | 必要的时候抛出异常
 #
 #=============================================================================
 '''
 
-__version__ = (0, 2, 9)
+__version__ = (0, 2, 10)
 
 from flask import Response, Markup
 from flask import current_app
@@ -49,6 +50,7 @@ var flask_util = function() {
             params = {};
         }
         if (!url_map[endpoint]) {
+            throw('endpoint is not exist: ' + endpoint);
             return '';
         }
         var rule = url_map[endpoint]['rule'];
