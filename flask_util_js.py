@@ -27,11 +27,12 @@
 #               0.2.8 | dantezhu | 2013-07-16 12:04:23 | 使用encodeURIComponent，否则中文有问题
 #               0.2.9 | dantezhu | 2013-07-16 12:04:23 | 用tojson，支持直接放到html中
 #               0.2.10 | dantezhu | 2013-07-19 11:10:41 | 必要的时候抛出异常
+#               0.2.11 | dantezhu | 2013-07-21 01:45:15 | 没有必要存储_app，用flask-testing时会报错
 #
 #=============================================================================
 '''
 
-__version__ = (0, 2, 10)
+__version__ = (0, 2, 11)
 
 from flask import Response, Markup
 from flask import current_app
@@ -109,8 +110,6 @@ class FlaskUtilJs(object):
         :app: Flask instance
 
         """
-        self._app = None
-
         if app:
             self.init_app(app)
         
@@ -118,11 +117,6 @@ class FlaskUtilJs(object):
         """
         安装到app上
         """
-        if self._app is not None:
-            raise Exception('flask_util_js is already associated with an application.')
-
-        self._app = app
-            
         path = app.config.get('FLASK_UTIL_JS_PATH', FLASK_UTIL_JS_PATH)
         endpoint = app.config.get('FLASK_UTIL_JS_ENDPOINT', None)
 
