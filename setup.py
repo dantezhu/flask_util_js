@@ -3,7 +3,7 @@ import flask_util_js
 
 setup(
     name="flask_util_js",
-    version='.'.join([str(v) for v in flask_util_js.__version__]),
+    version=flask_util_js.__version__,
     zip_safe=False,
     platforms='any',
     py_modules=['flask_util_js'],
