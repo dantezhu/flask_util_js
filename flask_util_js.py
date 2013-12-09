@@ -33,7 +33,7 @@
 #=============================================================================
 '''
 
-__version__ = '0.2.13'
+__version__ = '0.2.14'
 
 from flask import Response, Markup
 from flask import current_app
@@ -95,7 +95,8 @@ var flask_util = function() {
     }
 
     return {
-        url_for: url_for
+        url_for: url_for,
+        url_map: url_map
     }
 }();
 
@@ -171,5 +172,5 @@ class FlaskUtilJs(object):
         return Markup('<script src="%s" type="text/javascript" charset="utf-8"></script>' % self.path)
 
     @property
-    def html(self):
+    def direct_js(self):
         return Markup('<script type="text/javascript" charset="utf-8">%s</script>' % self.content)
