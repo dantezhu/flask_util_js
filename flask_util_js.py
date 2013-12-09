@@ -33,7 +33,7 @@
 #=============================================================================
 '''
 
-__version__ = '0.2.14'
+__version__ = '0.2.15'
 
 from flask import Response, Markup
 from flask import current_app
@@ -172,5 +172,5 @@ class FlaskUtilJs(object):
         return Markup('<script src="%s" type="text/javascript" charset="utf-8"></script>' % self.path)
 
     @property
-    def direct_js(self):
+    def merge_js(self):
         return Markup('<script type="text/javascript" charset="utf-8">%s</script>' % self.content)
