@@ -14,15 +14,9 @@ flask's util in javascript. such as url_for etc.
 
     fujs = FlaskUtilJs(app)
 
-###### inject fujs to template context
-
-    @app.context_processor
-    def inject_fujs():
-        return dict(fujs=fujs)
-
 ###### load flask_util.js in your html file
 
-    {{ fujs.js }}
+    {{ flask_util_js.js }}
 
 ###### use url_for in your js file
 

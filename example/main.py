@@ -14,10 +14,6 @@ app.config.from_object(__name__)
 
 fujs = FlaskUtilJs(app)
 
-@app.context_processor
-def inject_fujs():
-    return dict(fujs=fujs)
-
 @app.route('/')
 def index():
     return render_template('index.html')

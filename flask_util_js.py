@@ -28,11 +28,12 @@
 #               0.2.9 | dantezhu | 2013-07-16 12:04:23 | 用tojson，支持直接放到html中
 #               0.2.10 | dantezhu | 2013-07-19 11:10:41 | 必要的时候抛出异常
 #               0.2.11 | dantezhu | 2013-07-21 01:45:15 | 没有必要存储_app，用flask-testing时会报错
+#               0.2.13 | dantezhu | 2013-12-09 16:09:08 | 增加默认的template inject，名字为: flask_util_js
 #
 #=============================================================================
 '''
 
-__version__ = '0.2.12'
+__version__ = '0.2.13'
 
 from flask import Response, Markup
 from flask import current_app
@@ -129,6 +130,10 @@ class FlaskUtilJs(object):
                     'Cache-Control':'no-cache',
                 }
             )
+
+        @app.context_processor
+        def inject_fujs():
+            return dict(flask_util_js=self)
         
         # 最后把数据写到实例里
         self._path = path
