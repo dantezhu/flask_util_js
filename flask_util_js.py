@@ -33,11 +33,15 @@
 #=============================================================================
 '''
 
-__version__ = '0.2.15'
+__version__ = '0.2.16'
 
-from flask import Response, Markup
-from flask import current_app
-from flask import render_template_string
+try:
+    from flask import Response, Markup
+    from flask import current_app
+    from flask import render_template_string
+except:
+    # 因为setup.py需要用到__version__，而一开始的时候可能flask并不存在
+    pass
 
 FLASK_UTIL_JS_PATH = '/flask_util.js'
 
