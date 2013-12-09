@@ -5,7 +5,7 @@ flask's util in javascript. such as url_for etc.
 
 ### usage
 
-###### install flask_util_js to your server app
+###### install flask_util_js to your flask app
 
     from flask import Flask
     from flask_util_js import FlaskUtilJs
@@ -18,6 +18,6 @@ flask's util in javascript. such as url_for etc.
 
     {{ flask_util_js.js }}
 
-###### use url_for in your js file
+###### use url_for in your js code
 
     var url = flask_util.url_for('sub.bpt_index', {y:2, x:'/sdf'});
