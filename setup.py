@@ -7,6 +7,7 @@ setup(
     zip_safe=False,
     platforms='any',
     py_modules=['flask_util_js'],
+    install_requires=['flask'],
     url="https://github.com/dantezhu/flask_util_js",
     license="BSD",
     author="dantezhu",
