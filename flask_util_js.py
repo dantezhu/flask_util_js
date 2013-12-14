@@ -29,11 +29,12 @@
 #               0.2.10 | dantezhu | 2013-07-19 11:10:41 | 必要的时候抛出异常
 #               0.2.11 | dantezhu | 2013-07-21 01:45:15 | 没有必要存储_app，用flask-testing时会报错
 #               0.2.13 | dantezhu | 2013-12-09 16:09:08 | 增加默认的template inject，名字为: flask_util_js
+#               0.2.18 | dantezhu | 2013-12-14 20:24:50 | 优化匹配顺序
 #
 #=============================================================================
 '''
 
-__version__ = '0.2.17'
+__version__ = '0.2.18'
 
 try:
     from flask import Response, Markup
@@ -49,18 +50,18 @@ FLASK_UTIL_JS_TPL_STRING = '''
 {% autoescape false %}
 
 var flask_util = function() {
-    var url_map = {{ url_map|tojson }};
+    var rule_map = {{ rule_map|tojson }};
 
     function url_for(endpoint, params) {
         if (!params) {
             params = {};
         }
 
-        if (!url_map[endpoint]) {
+        if (!rule_map[endpoint]) {
             throw('endpoint is not exist: ' + endpoint);
         }
 
-        var rule = url_map[endpoint]['rule'];
+        var rule = rule_map[endpoint];
 
         var used_params = {};
 
@@ -100,7 +101,7 @@ var flask_util = function() {
 
     return {
         url_for: url_for,
-        url_map: url_map
+        rule_map: rule_map
     }
 }();
 
@@ -154,19 +155,15 @@ class FlaskUtilJs(object):
 
     @property
     def content(self):
-        org_url_map = current_app.url_map._rules_by_endpoint
+        rule_map = dict()
 
-        #把重的逻辑还是放到python代码里
-        url_map = dict()
-
-        for k,v in org_url_map.items():
-            url_map[k] = dict(
-                rule=v[0].rule,
-                )
+        for rule in current_app.url_map._rules:
+            if rule.endpoint not in rule_map:
+                rule_map[rule.endpoint] = rule.rule
 
         data = render_template_string(
             FLASK_UTIL_JS_TPL_STRING, 
-            url_map=url_map,
+            rule_map=rule_map,
             )
 
         return data

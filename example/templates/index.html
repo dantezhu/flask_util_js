@@ -9,10 +9,10 @@
         {{ flask_util_js.js }}
 
         <script type="text/javascript" charset="utf-8">
-            var url = flask_util.url_for('sub.bpt_index', {y:2, x:'/sdf'});
+            var url = flask_util.url_for('a', {x:2, y:'/sdf'});
             alert(url);
 
-            url = flask_util.url_for('show_id', {myid:'dante'});
+            url = flask_util.url_for('b', {name:'dante', gender:'male'});
             alert(url);
         </script>
     </head>

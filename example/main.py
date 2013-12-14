@@ -5,7 +5,7 @@ import sys
 sys.path.insert(0, '../')
 
 from flask import Flask, Blueprint
-from flask import render_template
+from flask import render_template, url_for
 
 from flask_util_js import FlaskUtilJs
 
@@ -15,25 +15,14 @@ app.config.from_object(__name__)
 fujs = FlaskUtilJs(app)
 
 @app.route('/')
-def index():
+def a():
+    print url_for('b', name='dante', gender='male')
     return render_template('index.html')
 
-@app.route('/<int:myid>')
-def show_id():
-    return 'ok'
-
-
-bpt = Blueprint('sub', __name__)
-
-@bpt.route('/', defaults=dict(x=u'我爱你'))
-@bpt.route('/<x>')
-def bpt_index(x):
-    print x
-    return 'ok'
-
-app.register_blueprint(bpt, url_prefix='/sub')
-
-    
+@app.route('/b/', defaults=dict(name='shit'))
+@app.route('/b/<name>')
+def b(name):
+    return name
 
 if __name__ == '__main__':
     app.run(debug=True)
