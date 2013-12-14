@@ -30,11 +30,12 @@
 #               0.2.11 | dantezhu | 2013-07-21 01:45:15 | 没有必要存储_app，用flask-testing时会报错
 #               0.2.13 | dantezhu | 2013-12-09 16:09:08 | 增加默认的template inject，名字为: flask_util_js
 #               0.2.18 | dantezhu | 2013-12-14 20:24:50 | 优化匹配顺序
+#               0.2.19 | dantezhu | 2013-12-14 20:50:43 | 不用tojson，否则看起来不方便。而且js是可以用'的
 #
 #=============================================================================
 '''
 
-__version__ = '0.2.18'
+__version__ = '0.2.19'
 
 try:
     from flask import Response, Markup
@@ -50,7 +51,7 @@ FLASK_UTIL_JS_TPL_STRING = '''
 {% autoescape false %}
 
 var flask_util = function() {
-    var rule_map = {{ rule_map|tojson }};
+    var rule_map = {{ rule_map }};
 
     function url_for(endpoint, params) {
         if (!params) {
