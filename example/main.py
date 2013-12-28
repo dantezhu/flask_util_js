@@ -19,7 +19,7 @@ def a():
     print url_for('b', name='dante', gender='male')
     return render_template('index.html')
 
-@app.route('/b/', defaults=dict(name='shit'))
+@app.route('/b/', defaults=dict(name='dn'))
 @app.route('/b/<name>')
 def b(name):
     return name

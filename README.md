@@ -20,4 +20,4 @@ flask's util in javascript. such as url_for etc.
 
 ###### use url_for in your js code
 
-    var url = flask_util.url_for('sub.bpt_index', {y:2, x:'/sdf'});
+    var url = flask_util.url_for('a', {x:2, y:'/sdf'});
