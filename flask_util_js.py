@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 #=============================================================================
 #
 #     FileName: flask_util_js.py
@@ -34,17 +34,13 @@
 #               0.2.20 | dantezhu | 2013-12-28 19:33:10 | 修改了一些名字
 #
 #=============================================================================
-'''
+"""
 
-__version__ = '0.2.20'
+__version__ = '0.2.21'
 
-try:
-    from flask import Response, Markup
-    from flask import current_app
-    from flask import render_template_string
-except:
-    # 因为setup.py需要用到__version__，而一开始的时候可能flask并不存在
-    pass
+from flask import Response, Markup
+from flask import current_app
+from flask import render_template_string
 
 FLASK_UTIL_JS_PATH = '/flask_util.js'
 

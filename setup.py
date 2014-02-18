@@ -1,9 +1,8 @@
 from setuptools import setup
-import flask_util_js
 
 setup(
     name="flask_util_js",
-    version=flask_util_js.__version__,
+    version='0.2.21',
     zip_safe=False,
     platforms='any',
     py_modules=['flask_util_js'],
