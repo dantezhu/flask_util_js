@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import sys
-
-sys.path.insert(0, '../')
-
 from flask import Flask, Blueprint
 from flask import render_template, url_for
 
