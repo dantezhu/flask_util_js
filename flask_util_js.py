@@ -36,7 +36,7 @@
 #=============================================================================
 """
 
-__version__ = '0.2.21'
+__version__ = '0.2.22'
 
 from flask import Response, Markup
 from flask import current_app
@@ -45,8 +45,7 @@ from flask import render_template_string
 FLASK_UTIL_JS_PATH = '/flask_util.js'
 
 FLASK_UTIL_JS_TPL_STRING = '''
-{% autoescape false %}
-
+{%- autoescape false -%}
 var flask_util = function() {
     var rule_map = {{ rule_map }};
 
@@ -56,7 +55,7 @@ var flask_util = function() {
         }
 
         if (!rule_map[endpoint]) {
-            throw('endpoint is not exist: ' + endpoint);
+            throw('endpoint does not exist: ' + endpoint);
         }
 
         var rule = rule_map[endpoint];
@@ -102,8 +101,7 @@ var flask_util = function() {
         rule_map: rule_map
     }
 }();
-
-{% endautoescape %}
+{%- endautoescape -%}
 '''
 
 class FlaskUtilJs(object):
@@ -117,7 +115,7 @@ class FlaskUtilJs(object):
         """
         if app:
             self.init_app(app)
-        
+
     def init_app(self, app):
         """
         安装到app上
@@ -138,11 +136,11 @@ class FlaskUtilJs(object):
         @app.context_processor
         def inject_fujs():
             return dict(flask_util_js=self)
-        
+
         # 最后把数据写到实例里
         self._path = path
         self._endpoint = endpoint or flask_util_js.__name__
-            
+
     @property
     def path(self):
         return self._path
@@ -160,7 +158,7 @@ class FlaskUtilJs(object):
                 rule_map[rule.endpoint] = rule.rule
 
         data = render_template_string(
-            FLASK_UTIL_JS_TPL_STRING, 
+            FLASK_UTIL_JS_TPL_STRING,
             rule_map=rule_map,
             )
 
