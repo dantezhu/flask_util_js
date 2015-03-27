@@ -36,7 +36,7 @@
 #=============================================================================
 """
 
-__version__ = '0.2.22'
+__version__ = '0.2.25'
 
 from flask import Response, Markup
 from flask import current_app
@@ -160,7 +160,7 @@ class FlaskUtilJs(object):
         data = render_template_string(
             FLASK_UTIL_JS_TPL_STRING,
             rule_map=rule_map,
-            )
+        )
 
         return data
 
@@ -169,5 +169,5 @@ class FlaskUtilJs(object):
         return Markup('<script src="%s" type="text/javascript" charset="utf-8"></script>' % self.path)
 
     @property
-    def merge_js(self):
-        return Markup('<script type="text/javascript" charset="utf-8">%s</script>' % self.content)
+    def embed_js(self):
+        return Markup('<script type="text/javascript" charset="utf-8">\n%s\n</script>' % self.content)
