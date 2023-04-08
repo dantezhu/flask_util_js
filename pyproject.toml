@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flask_util_js"
+version = "0.2.26"
+authors = [{name = "dantezhu", email = "zny2008@gmail.com"}]
+license = {text = "BSD"}
+description = "flask's util in javascript. such as url_for etc."
+dependencies = ["flask"]
+
+[project.urls]
+Homepage = "https://github.com/dantezhu/flask_util_js"
+
+[tool.setuptools]
+py-modules = ["flask_util_js"]
+zip-safe = false
+platforms = ["any"]
+include-package-data = false
